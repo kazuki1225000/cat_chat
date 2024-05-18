@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージアプリ風Webサイト</title>
+    <style>
+        body {
+            background-color: #7499C0;
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .message .icon {
+            width: 40px;
+            height: 40px;
+            background-color: #666;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message .text {
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+        .message.sent {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .message.sent .text {
+            background-color: #8DE055;
+            align-self: flex-end;
+        }
+        .message.received .text {
+            background-color: #f0f0f0;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: #8DE055;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- メッセージ -->
+        <div class="message sent">
+            <div class="text">元気？</div>
+        </div>
+        <div class="message received">
+            <img class="icon" src="images/cat_up.jpg" alt="送信者の写真">
+            <div class="text">ﾆｬ……</div>
+        </div>
+    </div>
+    <div class="input-container">
+        
+        <input type="text" id="userMessage" placeholder="話しかける">
+        <button onclick="sendMessage()">送る</button>
+    </div>
+
+    <script>
+        const messages = [
+        "ﾏ----ｵ!!!","ﾏ---ｵ!!!","ﾏ--ｵ!!!","ﾏ-ｵ!!!","ﾏｵ!!!","ﾏ--ｵ!!","ﾏｰｰｰｰｰｵ!!!","ﾏ-ｰｰｰｰｵ!!!","ﾏ---ｰｰｰｰｵ!!!","ﾏ---ｰｰｰｰｰｵ!!!","ｺﾞﾛﾆｬ……","ﾆｬ……ｺﾞﾛ","……ﾆｬ……","ｺﾞﾛ……","ﾆｬ……","……ｺﾞﾛ","ｺﾞﾛｺﾞﾛ","ﾆｬｺﾞﾛ","ｺﾞﾛﾆｬ","ﾆｬ……","ｳﾞｳｳﾆｬﾝｳｳｳｳｳｳｳｰ！","ﾆｬﾝｳ-ﾝﾆｬﾝｳﾞｰ","ｳｳﾆｬﾝﾆｬﾝﾆｬﾆｬｳ-！","ｳｰｳｰﾆｬﾆｬﾝｳｰ！","ｳｳ-ﾆｬﾝﾆｬｳﾞﾝﾆｬｳｰ","ﾆｬﾆｬﾆｬﾆｬﾆｬｳ-ﾝｰ！","ｳｰｳ-ﾝｳﾞﾝｰ","ﾆｬﾝｳ-ｳｳｳﾞﾝｰ！","ﾆｬﾆｬﾆｬｳﾞ-ﾝｳｰ！","ｳ-ﾝｳﾞｳｰﾆｬﾝｰ！","ｳﾞｳｰﾆｬｵｰ！","ﾆｬｳｰｳ-ｳｰ！","ｳｰｳﾆｬｳ-ｵｰ！","ｳﾞｳｰｳ-ﾆｬｰ！","ｳﾞ-ﾆｬｳｰｵ-！","ﾆｬｳ-ｳｳｳｰｵ-！","ｳｰﾆｬｵｰﾆｬﾝ！","ｵ-ﾆｬｳﾞ-ﾝｰ！","ｳﾞ-ﾆｬｰｳｰｵ-！","ｳﾞ-ｳｳﾆｬｰｵｰ！","ｺﾞﾛﾆｬ……ﾆｬｺﾞﾛ……","ﾆｬ……ｺﾞﾛﾆｬｺﾞﾛ……","ｺﾞﾛ……ﾆｬ……ｺﾞﾛﾆｬ","ﾆｬｺﾞﾛ……ﾆｬ……ｺﾞﾛ……","……ﾆｬ……ｺﾞﾛﾆｬ……","ｺﾞﾛ……ｺﾞﾛ……ﾆｬ……","ﾆｬ……ｺﾞﾛ……ﾆｬ……","……ﾆｬ……ｺﾞﾛﾆｬ……","ｺﾞﾛ……ﾆｬ……ﾆｬ……","……ｺﾞﾛﾆｬ……ﾆｬ……","ｳﾞ---ﾝｰ-ﾆｬ---ｳ--！","ﾝ-ｳ---ｳﾞ-ﾆｬ---！","ﾆｬ---ｳﾞ---ﾝｰ--！","ｳﾞ---ﾝ---ﾆｬｰ-ｳ--！","ｳ---ﾆｬ-ﾝ---ｳﾞ--！","ｳﾞ--ﾝ---ｳ-ﾆｬ---！","ﾆｬ-ﾝ---ｳ---ｳﾞ--！","ﾝ---ｳ-ﾞ---ﾆｬｰ--！","ｳ---ﾞ---ﾝ---ﾆｬ-！","ｳﾞ---ﾝｰ-ﾆｬ---！","ﾝ-ｳ---ｳﾞ---！","ﾆｬ---ｳﾞ---ﾝｰ！","ｳﾞ---ﾝ---ﾆｬ-ｰ！","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………"
+        ];
+
+        function sendMessage() {
+            const userMessage = document.getElementById('userMessage').value;
+            if (userMessage.trim() === '') return;
+
+            const chatContainer = document.querySelector('.chat-container');
+
+            // User message
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'message sent';
+            userMessageElement.innerHTML = `<div class="text">${userMessage}</div>`;
+            chatContainer.appendChild(userMessageElement);
+
+            // Clear input
+            document.getElementById('userMessage').value = '';
+
+            // Auto scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Bot response after a short delay
+            setTimeout(() => {
+                const botMessage = messages[Math.floor(Math.random() * messages.length)];
+                const botMessageElement = document.createElement('div');
+                botMessageElement.className = 'message received';
+                botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真"><div class="text">${botMessage.replace(/おぢ/g,  'さん')}</div>`;
+                chatContainer.appendChild(botMessageElement);
+
+                // Auto scroll to bottom
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
