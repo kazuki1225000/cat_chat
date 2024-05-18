@@ -8,6 +8,8 @@
         body {
             background-color: #7499C0;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 70px; /* スクロール時に入力欄が見えるように */
         }
         .chat-container {
             width: 90%;
@@ -17,6 +19,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
         }
         .message {
             display: flex;
@@ -47,7 +50,16 @@
         }
         .input-container {
             display: flex;
-            margin-top: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 90%;
+            max-width: 600px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* background-color: white; */
+            padding: 10px 20px;
+            /* box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); */
+            box-sizing: border-box;
         }
         .input-container input {
             flex: 1;
@@ -72,19 +84,30 @@
             <div class="text">元気？</div>
         </div>
         <div class="message received">
-            <img class="icon" src="images/cat_up.jpg" alt="送信者の写真">
+            <img class="icon" src="images/cat_up.jpg" >
             <div class="text">ﾆｬ……</div>
         </div>
     </div>
     <div class="input-container">
-        
         <input type="text" id="userMessage" placeholder="話しかける">
         <button onclick="sendMessage()">送る</button>
     </div>
 
     <script>
         const messages = [
-        "ﾏ----ｵ!!!","ﾏ---ｵ!!!","ﾏ--ｵ!!!","ﾏ-ｵ!!!","ﾏｵ!!!","ﾏ--ｵ!!","ﾏｰｰｰｰｰｵ!!!","ﾏ-ｰｰｰｰｵ!!!","ﾏ---ｰｰｰｰｵ!!!","ﾏ---ｰｰｰｰｰｵ!!!","ｺﾞﾛﾆｬ……","ﾆｬ……ｺﾞﾛ","……ﾆｬ……","ｺﾞﾛ……","ﾆｬ……","……ｺﾞﾛ","ｺﾞﾛｺﾞﾛ","ﾆｬｺﾞﾛ","ｺﾞﾛﾆｬ","ﾆｬ……","ｳﾞｳｳﾆｬﾝｳｳｳｳｳｳｳｰ！","ﾆｬﾝｳ-ﾝﾆｬﾝｳﾞｰ","ｳｳﾆｬﾝﾆｬﾝﾆｬﾆｬｳ-！","ｳｰｳｰﾆｬﾆｬﾝｳｰ！","ｳｳ-ﾆｬﾝﾆｬｳﾞﾝﾆｬｳｰ","ﾆｬﾆｬﾆｬﾆｬﾆｬｳ-ﾝｰ！","ｳｰｳ-ﾝｳﾞﾝｰ","ﾆｬﾝｳ-ｳｳｳﾞﾝｰ！","ﾆｬﾆｬﾆｬｳﾞ-ﾝｳｰ！","ｳ-ﾝｳﾞｳｰﾆｬﾝｰ！","ｳﾞｳｰﾆｬｵｰ！","ﾆｬｳｰｳ-ｳｰ！","ｳｰｳﾆｬｳ-ｵｰ！","ｳﾞｳｰｳ-ﾆｬｰ！","ｳﾞ-ﾆｬｳｰｵ-！","ﾆｬｳ-ｳｳｳｰｵ-！","ｳｰﾆｬｵｰﾆｬﾝ！","ｵ-ﾆｬｳﾞ-ﾝｰ！","ｳﾞ-ﾆｬｰｳｰｵ-！","ｳﾞ-ｳｳﾆｬｰｵｰ！","ｺﾞﾛﾆｬ……ﾆｬｺﾞﾛ……","ﾆｬ……ｺﾞﾛﾆｬｺﾞﾛ……","ｺﾞﾛ……ﾆｬ……ｺﾞﾛﾆｬ","ﾆｬｺﾞﾛ……ﾆｬ……ｺﾞﾛ……","……ﾆｬ……ｺﾞﾛﾆｬ……","ｺﾞﾛ……ｺﾞﾛ……ﾆｬ……","ﾆｬ……ｺﾞﾛ……ﾆｬ……","……ﾆｬ……ｺﾞﾛﾆｬ……","ｺﾞﾛ……ﾆｬ……ﾆｬ……","……ｺﾞﾛﾆｬ……ﾆｬ……","ｳﾞ---ﾝｰ-ﾆｬ---ｳ--！","ﾝ-ｳ---ｳﾞ-ﾆｬ---！","ﾆｬ---ｳﾞ---ﾝｰ--！","ｳﾞ---ﾝ---ﾆｬｰ-ｳ--！","ｳ---ﾆｬ-ﾝ---ｳﾞ--！","ｳﾞ--ﾝ---ｳ-ﾆｬ---！","ﾆｬ-ﾝ---ｳ---ｳﾞ--！","ﾝ---ｳ-ﾞ---ﾆｬｰ--！","ｳ---ﾞ---ﾝ---ﾆｬ-！","ｳﾞ---ﾝｰ-ﾆｬ---！","ﾝ-ｳ---ｳﾞ---！","ﾆｬ---ｳﾞ---ﾝｰ！","ｳﾞ---ﾝ---ﾆｬ-ｰ！","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………","ﾆｬ……","ﾆｬ…………","ﾆｬ………………"
+            "ﾏ----ｵ!!!", "ﾏ---ｵ!!!", "ﾏ--ｵ!!!", "ﾏ-ｵ!!!", "ﾏｵ!!!", "ﾏ--ｵ!!", "ﾏｰｰｰｰｰｵ!!!", "ﾏ-ｰｰｰｰｵ!!!", 
+            "ﾏ---ｰｰｰｰｵ!!!", "ﾏ---ｰｰｰｰｰｵ!!!", "ｺﾞﾛﾆｬ……", "ﾆｬ……ｺﾞﾛ", "……ﾆｬ……", "ｺﾞﾛ……", "ﾆｬ……", 
+            "……ｺﾞﾛ", "ｺﾞﾛｺﾞﾛ", "ﾆｬｺﾞﾛ", "ｺﾞﾛﾆｬ", "ﾆｬ……", "ｳﾞｳｳﾆｬﾝｳｳｳｳｳｳｳｰ！", "ﾆｬﾝｳ-ﾝﾆｬﾝｳﾞｰ", 
+            "ｳｳﾆｬﾝﾆｬﾝﾆｬﾆｬｳ-！", "ｳｰｳｰﾆｬﾆｬﾝｳｰ！", "ｳｳ-ﾆｬﾝﾆｬｳﾞﾝﾆｬｳｰ", "ﾆｬﾆｬﾆｬﾆｬﾆｬｳ-ﾝｰ！", 
+            "ｳｰｳ-ﾝｳﾞﾝｰ", "ﾆｬﾝｳ-ｳｳｳﾞﾝｰ！", "ﾆｬﾆｬﾆｬｳﾞ-ﾝｳｰ！", "ｳ-ﾝｳﾞｳｰﾆｬﾝｰ！", "ｳﾞｳｰﾆｬｵｰ！", 
+            "ﾆｬｳｰｳ-ｳｰ！", "ｳｰｳﾆｬｳ-ｵｰ！", "ｳﾞｳｰｳ-ﾆｬｰ！", "ｳﾞ-ﾆｬｳｰｵ-！", "ﾆｬｳ-ｳｳｳｰｵ-！", 
+            "ｳｰﾆｬｵｰﾆｬﾝ！", "ｵ-ﾆｬｳﾞ-ﾝｰ！", "ｳﾞ-ﾆｬｰｳｰｵ-！", "ｳﾞ-ｳｳﾆｬｰｵｰ！", "ｺﾞﾛﾆｬ……ﾆｬｺﾞﾛ……", 
+            "ﾆｬ……ｺﾞﾛﾆｬｺﾞﾛ……", "ｺﾞﾛ……ﾆｬ……ｺﾞﾛﾆｬ", "ﾆｬｺﾞﾛ……ﾆｬ……ｺﾞﾛ……", "……ﾆｬ……ｺﾞﾛﾆｬ……", 
+            "ｺﾞﾛ……ｺﾞﾛ……ﾆｬ……", "ﾆｬ……ｺﾞﾛ……ﾆｬ……", "……ﾆｬ……ｺﾞﾛﾆｬ……", "ｺﾞﾛ……ﾆｬ……ﾆｬ……", 
+            "……ｺﾞﾛﾆｬ……ﾆｬ……", "ｳﾞ---ﾝｰ-ﾆｬ---ｳ--！", "ﾝ-ｳ---ｳﾞ-ﾆｬ---！", "ﾆｬ---ｳﾞ---ﾝｰ--！", 
+            "ｳﾞ---ﾝ---ﾆｬｰ-ｳ--！", "ｳ---ﾆｬ-ﾝ---ｳﾞ--！", "ｳﾞ--ﾝ---ｳ-ﾆｬ---！", "ﾆｬ-ﾝ---ｳ---ｳﾞ--！", 
+            "ﾝ---ｳ-ﾞ---ﾆｬｰ--！", "ｳ---ﾞ---ﾝ---ﾆｬ-！", "ｳヴ---ﾝｰ-ﾆｬ---！", "ﾝ-ｳ---ｳヴ---！", "ﾆｬ---ｳヴ---ﾝｰ！", 
+            "ｳヴ---ﾝ---ﾆｬ-ｰ！"
         ];
 
         function sendMessage() {
@@ -105,17 +128,23 @@
             // Auto scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // Bot response after a short delay
-            setTimeout(() => {
-                const botMessage = messages[Math.floor(Math.random() * messages.length)];
-                const botMessageElement = document.createElement('div');
-                botMessageElement.className = 'message received';
-                botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真"><div class="text">${botMessage.replace(/おぢ/g,  'さん')}</div>`;
-                chatContainer.appendChild(botMessageElement);
+            // Determine if bot should send multiple messages
+            const shouldSendMultiple = Math.random() < 1 / 3;
+            const messageCount = shouldSendMultiple ? Math.floor(Math.random() * 2) + 2 : 1;
 
-                // Auto scroll to bottom
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 500);
+            // Bot response
+            for (let i = 0; i < messageCount; i++) {
+                setTimeout(() => {
+                    const botMessage = messages[Math.floor(Math.random() * messages.length)];
+                    const botMessageElement = document.createElement('div');
+                    botMessageElement.className = 'message received';
+                    botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真">　<div class="text">${botMessage.replace(/おぢ/g, 'さん')}</div>`;
+                    chatContainer.appendChild(botMessageElement);
+
+                    // Auto scroll to bottom
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 500 * (i + 1));
+            }
         }
     </script>
 </body>
