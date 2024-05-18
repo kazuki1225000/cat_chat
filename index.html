@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>メッセージアプリ風Webサイト</title>
     <style>
         body {
@@ -61,9 +61,7 @@
             max-width: 600px;
             left: 50%;
             transform: translateX(-50%);
-            /* background-color: white; */
             padding: 10px 20px;
-            /* box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); */
             box-sizing: border-box;
         }
         .input-container input {
@@ -101,7 +99,7 @@
             <div class="text">元気？</div>
         </div>
         <div class="message received">
-            <img class="icon" src="images/cat_up.jpg" >
+            <img class="icon" src="images/cat_up.jpg">
             <div class="text">ﾆｬ……</div>
         </div>
     </div>
@@ -118,41 +116,45 @@
             "ｳｳﾆｬﾝﾆｬﾝﾆｬﾆｬｳ-！", "ｳｰｳｰﾆｬﾆｬﾝｳｰ！", "ｳｳ-ﾆｬﾝﾆｬｳﾞﾝﾆｬｳｰ", "ﾆｬﾆｬﾆｬﾆｬﾆｬｳ-ﾝｰ！", 
             "ｳｰｳ-ﾝｳﾞﾝｰ", "ﾆｬﾝｳ-ｳｳｳﾞﾝｰ！", "ﾆｬﾆｬﾆｬｳﾞ-ﾝｳｰ！", "ｳ-ﾝｳﾞｳｰﾆｬﾝｰ！", "ｳﾞｳｰﾆｬｵｰ！", 
             "ﾆｬｳｰｳ-ｳｰ！", "ｳｰｳﾆｬｳ-ｵｰ！", "ｳﾞｳｰｳ-ﾆｬｰ！", "ｳﾞ-ﾆｬｳｰｵ-！", "ﾆｬｳ-ｳｳｳｰｵ-！", 
-            "ｳｰﾆｬｵｰﾆｬﾝ！", "ｵ-ﾆｬｳﾞ-ﾝｰ！", "ｳﾞ-ﾆｬｰｳｰｵ-！", "ｳﾞ-ｳｳﾆｬｰｵｰ！", "ｺﾞﾛﾆｬ……ﾆｬｺﾞﾛ……", 
+            "ｳｰﾆｬｵｰﾆｬｵｰﾆｬﾆｬｵｰﾆｬﾝｰ！", "ｵ-ﾆｬｳﾞ-ﾝｰ！", "ｳﾞ-ﾆｬｰｳｰｵ-！", "ｳﾞ-ｳｳﾆｬｰｵｰ！", "ｺﾞﾛﾆｬ……ﾆｬｺﾞﾛ……", 
             "ﾆｬ……ｺﾞﾛﾆｬｺﾞﾛ……", "ｺﾞﾛ……ﾆｬ……ｺﾞﾛﾆｬ", "ﾆｬｺﾞﾛ……ﾆｬ……ｺﾞﾛ……", "……ﾆｬ……ｺﾞﾛﾆｬ……", 
             "ｺﾞﾛ……ｺﾞﾛ……ﾆｬ……", "ﾆｬ……ｺﾞﾛ……ﾆｬ……", "……ﾆｬ……ｺﾞﾛﾆｬ……", "ｺﾞﾛ……ﾆｬ……ﾆｬ……", 
             "……ｺﾞﾛﾆｬ……ﾆｬ……", "ｳﾞ---ﾝｰ-ﾆｬ---ｳ--！", "ﾝ-ｳ---ｳﾞ-ﾆｬ---！", "ﾆｬ---ｳﾞ---ﾝｰ--！", 
             "ｳﾞ---ﾝ---ﾆｬｰ-ｳ--！", "ｳ---ﾆｬ-ﾝ---ｳﾞ--！", "ｳﾞ--ﾝ---ｳ-ﾆｬ---！", "ﾆｬ-ﾝ---ｳ---ｳﾞ--！", 
-            "ﾝ---ｳ-ﾞ---ﾆｬｰ--！", "ｳ---ﾞ---ﾝ---ﾆｬ-！", "ｳヴ---ﾝｰ-ﾆｬ---！", "ﾝ-ｳ---ｳヴ---！", "ﾆｬ---ｳヴ---ﾝｰ！", 
-            "ｳヴ---ﾝ---ﾆｬ-ｰ！"
-        ];
+            "ﾝ---ｳ-ﾞ---ﾆｬｰ--！", "ｳ---ﾞ---ﾝ---ﾆｬ-！", "ｳヴ---ﾝｰ-ﾆｬ---！", "ﾝ-ｳ---ｳヴ---！", 
+            "ﾆｬ---ｳヴ---ﾝｰ！", "ｳヴ---ﾝ---ﾆｬ-ｰ！"
+            ];
 
         const specialMessages = [
             "鈴木さん", "これはプログラムによって制御されたメッセージです", "目を覚ましてください",
             "鈴木さん", "見てますよね？", "ね？？？"
         ];
-
+        
+        let messageCount = 0;
+        
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value;
             if (userMessage.trim() === '') return;
-
+        
             const chatContainer = document.querySelector('.chat-container');
-
+        
             // User message
             const userMessageElement = document.createElement('div');
             userMessageElement.className = 'message sent';
             userMessageElement.innerHTML = `<div class="text">${userMessage}</div>`;
             chatContainer.appendChild(userMessageElement);
-
+        
             // Clear input
             document.getElementById('userMessage').value = '';
-
+        
             // Auto scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
-
+        
+            messageCount++;
+        
             // Bot response after a short delay
             setTimeout(() => {
-                if (Math.random() < 1 / 20) {
+                if (messageCount > 5 && Math.random() < 1 / 20) {
                     // Special message sequence
                     specialMessages.forEach((msg, index) => {
                         setTimeout(() => {
@@ -167,7 +169,7 @@
                     // Regular bot response with 1/3 chance of multiple messages
                     const shouldSendMultiple = Math.random() < 1 / 3;
                     const messageCount = shouldSendMultiple ? Math.floor(Math.random() * 2) + 2 : 1;
-
+        
                     for (let i = 0; i < messageCount; i++) {
                         setTimeout(() => {
                             const botMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -175,7 +177,7 @@
                             botMessageElement.className = 'message received';
                             botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真"><div class="text">${botMessage.replace(/おぢ/g, 'さん')}</div>`;
                             chatContainer.appendChild(botMessageElement);
-
+        
                             chatContainer.scrollTop = chatContainer.scrollHeight;
                         }, 500 * (i + 1));
                     }
@@ -185,3 +187,5 @@
     </script>
 </body>
 </html>
+
+
