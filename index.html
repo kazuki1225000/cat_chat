@@ -110,6 +110,11 @@
             "ｳヴ---ﾝ---ﾆｬ-ｰ！"
         ];
 
+        const specialMessages = [
+            "鈴木さん", "これはプログラムによって制御されたメッセージです", "目を覚ましてください",
+            "鈴木さん", "見てますよね？", "ね？？？"
+        ];
+
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value;
             if (userMessage.trim() === '') return;
@@ -128,22 +133,34 @@
             // Auto scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // Determine if bot should send multiple messages
-            const shouldSendMultiple = Math.random() < 1 / 3;
-            const messageCount = shouldSendMultiple ? Math.floor(Math.random() * 2) + 2 : 1;
+            // Determine if special sequence should be sent
+            const shouldSendSpecial = Math.random() < 1/20;
+            if (shouldSendSpecial) {
+                specialMessages.forEach((msg, index) => {
+                    setTimeout(() => {
+                        const botMessageElement = document.createElement('div');
+                        botMessageElement.className = 'message received';
+                        botMessageElement.innerHTML = `<div class="icon"></div><div class="text">${msg}</div>`;
+                        chatContainer.appendChild(botMessageElement);
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }, 500 * (index + 1));
+                });
+            } else {
+                // Regular bot response with 1/3 chance of multiple messages
+                const shouldSendMultiple = Math.random() < 1 / 3;
+                const messageCount = shouldSendMultiple ? Math.floor(Math.random() * 2) + 2 : 1;
 
-            // Bot response
-            for (let i = 0; i < messageCount; i++) {
-                setTimeout(() => {
-                    const botMessage = messages[Math.floor(Math.random() * messages.length)];
-                    const botMessageElement = document.createElement('div');
-                    botMessageElement.className = 'message received';
-                    botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真">　<div class="text">${botMessage.replace(/おぢ/g, 'さん')}</div>`;
-                    chatContainer.appendChild(botMessageElement);
+                for (let i = 0; i < messageCount; i++) {
+                    setTimeout(() => {
+                        const botMessage = messages[Math.floor(Math.random() * messages.length)];
+                        const botMessageElement = document.createElement('div');
+                        botMessageElement.className = 'message received';
+                        botMessageElement.innerHTML = `<img class="icon" src="images/cat_up.jpg" alt="送信者の写真"><div class="text">${botMessage.replace(/おぢ/g, 'さん')}</div>`;
+                        chatContainer.appendChild(botMessageElement);
 
-                    // Auto scroll to bottom
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }, 500 * (i + 1));
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }, 500 * (i + 1));
+                }
             }
         }
     </script>
